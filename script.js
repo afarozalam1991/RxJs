@@ -49,10 +49,9 @@ RxJs Operators
 //  return value*2;
 // }).throttleTime(1900).subscribe(observers);
 
-/* RxJs Subjects */
-
-var subject= new Rx.Subject();
-subject.subscribe({
+/* Filter Operator */
+var observable= Rx.Observable.interval(1000);
+var observer={
     next: function(value){
         console.log(value);
     },
@@ -62,10 +61,30 @@ subject.subscribe({
     complete: function(){
         console.log('Completed!');
     }
-});
-subject.subscribe({
-    next: function(value){
-        console.log(value);
-    }
-});
-subject.next('A Piece of code has been multicasted!');
+}
+observable.
+    map((value)=>{
+        return value*2;
+    }).filter((value)=>{
+        return value%2===0;
+    }).subscribe(observer);
+// /* RxJs Subjects */
+
+// var subject= new Rx.Subject();
+// subject.subscribe({
+//     next: function(value){
+//         console.log(value);
+//     },
+//     error: function(error){
+//         console.log(error);
+//     },
+//     complete: function(){
+//         console.log('Completed!');
+//     }
+// });
+// subject.subscribe({
+//     next: function(value){
+//         console.log(value);
+//     }
+// });
+// subject.next('A Piece of code has been multicasted!');
