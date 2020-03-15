@@ -72,15 +72,29 @@ RxJs Operators
 /*Debounce and distinctUntilChanged
 operators. */
 
-var input= document.querySelector('input');
-var observable= Rx.Observable.fromEvent(input, 'input');
-var observer={
-    next: function(value){
-        console.log(value);
-    }
-}
+// var input= document.querySelector('input');
+// var observable= Rx.Observable.fromEvent(input, 'input');
+// var observer={
+//     next: function(value){
+//         console.log(value);
+//     }
+// }
 
-observable.map((event)=>event.target.value).debounceTime(1000).distinctUntilChanged().subscribe(observer);
+// observable.map((event)=>event.target.value).debounceTime(1000).distinctUntilChanged().subscribe(observer);
+/*Debounce and distinctUntilChanged
+operators. */
+var span= document.querySelector('span');
+var input1= document.querySelector('firstName');
+var observable1= Rx.Observable.fromEvent(firstName, 'input');
+var input2= document.querySelector('lastName');
+var observable2= Rx.Observable.fromEvent(lastName, 'input');
+observable1.mergeMap(
+    event1=> {
+        return observable2.map(
+            event2=> event1.target.value + ' ' + event2.target.value
+        )
+    }
+).subscribe(fullName=>span.textContent=fullName)
 // /* RxJs Subjects */
 
 // var subject= new Rx.Subject();
@@ -99,6 +113,6 @@ observable.map((event)=>event.target.value).debounceTime(1000).distinctUntilChan
 //     next: function(value){
 //         console.log(value);
 //     }
-// });
+// }); span.
 // subject.next('A Piece of code has been multicasted!');
 
