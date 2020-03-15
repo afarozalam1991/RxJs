@@ -50,24 +50,37 @@ RxJs Operators
 // }).throttleTime(1900).subscribe(observers);
 
 /* Filter Operator */
-var observable= Rx.Observable.interval(1000);
+// var observable= Rx.Observable.interval(1000);
+// var observer={
+//     next: function(value){
+//         console.log(value);
+//     },
+//     error: function(error){
+//         console.log(error);
+//     },
+//     complete: function(){
+//         console.log('Completed!');
+//     }
+// }
+// observable.
+//     map((value)=>{
+//         return value*2;
+//     }).filter((value)=>{
+//         return value%2===0;
+//     }).subscribe(observer);
+
+/*Debounce and distinctUntilChanged
+operators. */
+
+var input= document.querySelector('input');
+var observable= Rx.Observable.fromEvent(input, 'input');
 var observer={
     next: function(value){
         console.log(value);
-    },
-    error: function(error){
-        console.log(error);
-    },
-    complete: function(){
-        console.log('Completed!');
     }
 }
-observable.
-    map((value)=>{
-        return value*2;
-    }).filter((value)=>{
-        return value%2===0;
-    }).subscribe(observer);
+
+observable.map((event)=>event.target.value).debounceTime(1000).distinctUntilChanged().subscribe(observer);
 // /* RxJs Subjects */
 
 // var subject= new Rx.Subject();
@@ -88,3 +101,4 @@ observable.
 //     }
 // });
 // subject.next('A Piece of code has been multicasted!');
+
